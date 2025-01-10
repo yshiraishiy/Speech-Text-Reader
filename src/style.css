@@ -108,7 +108,7 @@ main {
   height: 250px;
 }
 
-.box:active {
+.box.active {
   box-shadow: 0 0 10px 5px darksalmon;
 }
 

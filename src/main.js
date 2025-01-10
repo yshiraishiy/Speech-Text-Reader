@@ -70,10 +70,22 @@ function createBox(item) {
     <p class="info">${text}</p>
   `;
 
-  // 音声イベント
+  box.addEventListener("click", () => {
+    setTextMessage(text);
+    speakText();
+
+    // 'active'クラスを付与
+    box.classList.add("active");
+    setTimeout(() => {
+      box.classList.remove("active");
+    }, 800);
+  });
 
   main.appendChild(box);
 }
+
+// セットされた音声を初期化
+const message = new SpeechSynthesisUtterance();
 
 // 音声を格納
 let voices = [];
@@ -91,6 +103,16 @@ function getVoices() {
 
     voicesSelect.appendChild(option);
   });
+}
+
+// テキストをセット
+function setTextMessage(text) {
+  message.text = text;
+}
+
+// セットしたテキストを音声にする
+function speakText() {
+  speechSynthesis.speak(message);
 }
 
 // 音声の変更
