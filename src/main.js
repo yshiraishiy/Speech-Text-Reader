@@ -74,3 +74,36 @@ function createBox(item) {
 
   main.appendChild(box);
 }
+
+// 音声を格納
+let voices = [];
+
+function getVoices() {
+  voices = speechSynthesis.getVoices();
+
+  voices.forEach((voice) => {
+    const option = document.createElement("option");
+
+    option.value = voice.name;
+    option.innerText = `
+      ${voice.name} ${voice.lang}
+    `;
+
+    voicesSelect.appendChild(option);
+  });
+}
+
+// 音声の変更
+speechSynthesis.addEventListener("voiceschanged", getVoices);
+
+// トグルボタンをクリックしてモーダルを表示
+toggleBtn.addEventListener("click", () => {
+  document.getElementById("text-box").classList.toggle("show");
+});
+
+// 閉じるボタンをクリックしてモーダルを非表示
+closeBtn.addEventListener("click", () => {
+  document.getElementById("text-box").classList.remove("show");
+});
+
+getVoices();
