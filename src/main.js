@@ -115,6 +115,11 @@ function speakText() {
   speechSynthesis.speak(message);
 }
 
+// 発話者をセット
+function setVoice(e) {
+  message.voice = voices.find((voice) => voice.name === e.target.value);
+}
+
 // 音声の変更
 speechSynthesis.addEventListener("voiceschanged", getVoices);
 
@@ -126,6 +131,15 @@ toggleBtn.addEventListener("click", () => {
 // 閉じるボタンをクリックしてモーダルを非表示
 closeBtn.addEventListener("click", () => {
   document.getElementById("text-box").classList.remove("show");
+});
+
+// 発話者の変更
+voicesSelect.addEventListener("change", setVoice);
+
+// ’Read Text’ボタン
+readBtn.addEventListener("click", () => {
+  setTextMessage(textarea.value);
+  speakText();
 });
 
 getVoices();
